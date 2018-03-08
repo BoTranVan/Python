@@ -52,7 +52,7 @@ def getPostData(url):
         pesudo = bs4.BeautifulSoup(req.text, "lxml")
 
         title =  pesudo.select_one("h1#object_title") or pesudo.select_one("div.block-feature.block-feature-1 h1.title-2") or pesudo.select_one("div.title-2 clearfix + h1") or pesudo.select_one("html title")
-        temp["title"] = title .prettify()
+        temp["title"] = title.text
 
         sub_tittle = pesudo.select_one("article.fck header b") or  pesudo.select_one("h2.txt-head") or pesudo.select_one("div.sp-detail-content p")
         temp["sub_tittle"] = sub_tittle.prettify()

@@ -5,7 +5,7 @@
 </head>
 <body>
     {% for post in data%}
-        <a href="/post/{{post.url[19:]}}" style="font-size: 8px !important;">{{post.data.title|safe}}</a>
+        <div><a href="/post/{{post.url[19:]}}">{{post.data.title|safe}}</a></div>
     {%endfor%}
 </body>
 </html>

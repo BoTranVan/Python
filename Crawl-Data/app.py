@@ -46,3 +46,5 @@ def postDetails(posturl):
         raise e
     finally:
         return render_template("post.html", data=res)
+
+app.run(host='0.0.0.0')
