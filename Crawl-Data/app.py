@@ -7,6 +7,10 @@ try:
     import os
     from flask import Flask
     from flask import render_template
+    baseUrl = "https://tuoitre.vn"
+    pathUrl = "/tin-moi-nhat.htm"
+    import tuoitre
+    tuoitre.get(baseUrl, pathUrl)
 except Exception as e:
     raise e
 
@@ -15,16 +19,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
-    baseUrl = "https://tuoitre.vn"
-    pathUrl = "/tin-moi-nhat.htm"
-
     pathName = "post-data-all/"
-
     try:
         import glob
         import codecs
-        import tuoitre
-        tuoitre.get(baseUrl, pathUrl)
+        # import tuoitre
+        # tuoitre.get(baseUrl, pathUrl)
         filename = glob.glob(pathName  + "*.json").pop()        
         fs = codecs.open(filename, encoding="utf-8")
     except Exception as e:
