@@ -1,0 +1,44 @@
+import pymysql as mysql
+
+
+DB_USER = "barbican"
+DB_PASSWD = ""
+DB_HOST = ""
+DB_NAME = "barbican"
+
+LOG = logging.getLogger(__name__)
+
+
+def getConnection():
+    return mysql.connect(
+        user=DB_USER,
+        password=DB_PASSWD,
+        host=DB_HOST,
+        db=DB_NAME,
+        charset='utf8',
+        cursorclass=mysql.cursors.DictCursor
+    )
+
+
+class OctaviaCert(OpenstackClient):
+    """docstring for OctaviaCert"""
+
+    def __init__(self, **kwargs):
+        super(OctaviaCert, self).__init__(**kwargs)
+
+    def get_containers_id(self):
+        connection = getConnection()
+        try:
+            with connection.cursors() as curs:
+                query = 'select containers.id, projects.external_id \
+                from containers \
+                inner join projects \
+                on containers.project_id = projects.id \
+                where containers.type like "certificate" \
+                and containers.deleted != "1"'
+                curs.execute(query)
+                return curs.fetchall()
+        except Exception as e:
+            raise e
+        finally:
+            connection.close()
