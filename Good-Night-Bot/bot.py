@@ -7,11 +7,13 @@ import time
 
 client = Client(config.username, config.password)
 
+
 def GoodNight():
-	for friend in config.friendlist:
-		wish = random.choice(config.wish).format(config.friendlist[friend])
-		client.sendRemoteImage(random.choice(config.images), message=wish, thread_id=friend, thread_type=ThreadType.USER)
-		time.sleep(1)
+    for friend in config.friendlist:
+        wish = random.choice(config.wish).format(config.friendlist[friend])
+        client.sendRemoteImage(random.choice(
+            config.images), message=wish, thread_id=friend, thread_type=ThreadType.USER)
+        time.sleep(1)
 
 schedule.every().day.at("23:00").do(GoodNight)
 
